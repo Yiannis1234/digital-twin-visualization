@@ -402,12 +402,36 @@
                     
                     // Instead of span, use direct HTML content with proper styling
                     const stageNames = {
-                        "Raw Materials": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Raw Materials</div></div>",
-                        "Component Manufacturing": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Component Manufacturing</div></div>",
-                        "Sub-Assembly": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Sub-Assembly</div></div>",
-                        "Final Assembly": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Final Assembly</div></div>",
-                        "Quality Control": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Quality Control</div></div>",
-                        "Dealership Network": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Dealership Network</div></div>"
+                        "Raw Materials": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
+                            <div style='background-color:#000000; padding:4px 8px; border-radius:4px; border:1px solid white; text-align:center;'>
+                                <div style='color:#ffffff; font-size:10px; font-weight:bold; line-height:1.2; text-shadow:0 0 3px #000;'>Raw<br>Materials</div>
+                            </div>
+                        </div>`,
+                        "Component Manufacturing": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
+                            <div style='background-color:#000000; padding:4px 8px; border-radius:4px; border:1px solid white; text-align:center;'>
+                                <div style='color:#ffffff; font-size:9px; font-weight:bold; line-height:1.2; text-shadow:0 0 3px #000;'>Component<br>Manufacturing</div>
+                            </div>
+                        </div>`,
+                        "Sub-Assembly": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
+                            <div style='background-color:#000000; padding:4px 8px; border-radius:4px; border:1px solid white; text-align:center;'>
+                                <div style='color:#ffffff; font-size:10px; font-weight:bold; line-height:1.2; text-shadow:0 0 3px #000;'>Sub-<br>Assembly</div>
+                            </div>
+                        </div>`,
+                        "Final Assembly": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
+                            <div style='background-color:#000000; padding:4px 8px; border-radius:4px; border:1px solid white; text-align:center;'>
+                                <div style='color:#ffffff; font-size:10px; font-weight:bold; line-height:1.2; text-shadow:0 0 3px #000;'>Final<br>Assembly</div>
+                            </div>
+                        </div>`,
+                        "Quality Control": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
+                            <div style='background-color:#000000; padding:4px 8px; border-radius:4px; border:1px solid white; text-align:center;'>
+                                <div style='color:#ffffff; font-size:10px; font-weight:bold; line-height:1.2; text-shadow:0 0 3px #000;'>Quality<br>Control</div>
+                            </div>
+                        </div>`,
+                        "Dealership Network": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
+                            <div style='background-color:#000000; padding:4px 8px; border-radius:4px; border:1px solid white; text-align:center;'>
+                                <div style='color:#ffffff; font-size:9px; font-weight:bold; line-height:1.2; text-shadow:0 0 3px #000;'>Dealership<br>Network</div>
+                            </div>
+                        </div>`
                     };
                     
                     // Set the HTML content directly
@@ -445,7 +469,7 @@
                     stage.style.fontWeight = 'bold';
                     stage.style.textAlign = 'center';
                     stage.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5)';
-                    stage.style.zIndex = '2';
+                    stage.style.zIndex = '10'; // Higher z-index to ensure visibility
                     stage.style.overflow = 'visible';
                 }
                 
