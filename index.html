@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Twin Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+        h1 {
+            color: #333;
+        }
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            color: #155724;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Digital Twin Visualization</h1>
+        <div class="message">
+            <p>The Digital Twin application is running on port 8080.</p>
+            <p>Please access it at: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a></p>
+            <p>If that doesn't work, try: <a href="http://127.0.0.1:8080" target="_blank">http://127.0.0.1:8080</a></p>
+            <p>Or: <a href="http://192.168.1.141:8080" target="_blank">http://192.168.1.141:8080</a></p>
+        </div>
+        <p>Your application is currently running based on the logs. Please click one of the links above.</p>
+        <p><strong>Note:</strong> If the links don't work, please make sure you're running the server with <code>python app.py</code> and there are no firewall restrictions.</p>
+    </div>
+</body>
+</html> 
