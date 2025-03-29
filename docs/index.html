@@ -230,9 +230,9 @@
                 <div class="digital-thread-visualization">
                     <div class="digital-thread-title">Digital Thread Across Automotive Supply Chain</div>
                     
-                    <!-- Modern Dashboard Module -->
-                    <div class="dashboard-module" style="
-                        background: linear-gradient(135deg, #2c3e50, #4ca1af);
+                    <!-- Product Lifecycle Management Dashboard -->
+                    <div class="plm-dashboard" style="
+                        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
                         border-radius: 12px;
                         padding: 25px;
                         color: white;
@@ -240,120 +240,530 @@
                         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
                     ">
                         <div style="text-align: center; margin-bottom: 20px;">
-                            <h4 style="font-weight: 600; margin-bottom: 5px;">Supply Chain Visibility</h4>
-                            <p style="opacity: 0.8; font-size: 14px;">End-to-end traceability across manufacturing stages</p>
+                            <h4 style="font-weight: 700; margin-bottom: 5px; font-size: 22px;">Product Lifecycle Management</h4>
+                            <p style="font-size: 15px;">Complete vehicle digital thread from design to end-of-life</p>
                         </div>
                         
+                        <!-- PLM Flow Diagram -->
+                        <div style="position: relative; margin-bottom: 25px; padding: 10px 0;">
+                            <!-- Flow Arrow -->
+                            <div style="
+                                height: 12px;
+                                background: rgba(255,255,255,0.2);
+                                border-radius: 6px;
+                                position: relative;
+                                margin: 10px 0 30px;
+                                z-index: 1;
+                            ">
+                                <div style="
+                                    position: absolute;
+                                    height: 100%;
+                                    width: 100%;
+                                    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+                                    border-radius: 6px;
+                                    animation: progressPulse 3s infinite alternate;
+                                "></div>
+                            </div>
+                            
+                            <!-- PLM Stage Markers -->
+                            <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                margin-top: -25px;
+                                position: relative;
+                                z-index: 2;
+                            ">
+                                <div style="
+                                    background: rgba(0,0,0,0.3);
+                                    border-radius: 50%;
+                                    width: 14px;
+                                    height: 14px;
+                                    position: relative;
+                                ">
+                                    <div style="
+                                        background: #ff6384;
+                                        border-radius: 50%;
+                                        width: 10px;
+                                        height: 10px;
+                                        position: absolute;
+                                        top: 2px;
+                                        left: 2px;
+                                    "></div>
+                                </div>
+                                
+                                <div style="
+                                    background: rgba(0,0,0,0.3);
+                                    border-radius: 50%;
+                                    width: 14px;
+                                    height: 14px;
+                                    position: relative;
+                                ">
+                                    <div style="
+                                        background: #36a2eb;
+                                        border-radius: 50%;
+                                        width: 10px;
+                                        height: 10px;
+                                        position: absolute;
+                                        top: 2px;
+                                        left: 2px;
+                                    "></div>
+                                </div>
+                                
+                                <div style="
+                                    background: rgba(0,0,0,0.3);
+                                    border-radius: 50%;
+                                    width: 14px;
+                                    height: 14px;
+                                    position: relative;
+                                ">
+                                    <div style="
+                                        background: #4bc0c0;
+                                        border-radius: 50%;
+                                        width: 10px;
+                                        height: 10px;
+                                        position: absolute;
+                                        top: 2px;
+                                        left: 2px;
+                                    "></div>
+                                </div>
+                                
+                                <div style="
+                                    background: rgba(0,0,0,0.3);
+                                    border-radius: 50%;
+                                    width: 14px;
+                                    height: 14px;
+                                    position: relative;
+                                ">
+                                    <div style="
+                                        background: #ffcd56;
+                                        border-radius: 50%;
+                                        width: 10px;
+                                        height: 10px;
+                                        position: absolute;
+                                        top: 2px;
+                                        left: 2px;
+                                    "></div>
+                                </div>
+                                
+                                <div style="
+                                    background: rgba(0,0,0,0.3);
+                                    border-radius: 50%;
+                                    width: 14px;
+                                    height: 14px;
+                                    position: relative;
+                                ">
+                                    <div style="
+                                        background: #9966ff;
+                                        border-radius: 50%;
+                                        width: 10px;
+                                        height: 10px;
+                                        position: absolute;
+                                        top: 2px;
+                                        left: 2px;
+                                    "></div>
+                                </div>
+                            </div>
+                            
+                            <!-- PLM Stage Labels -->
+                            <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                text-align: center;
+                                margin-top: 8px;
+                                font-size: 11px;
+                                font-weight: 600;
+                            ">
+                                <div style="width: 70px;">DESIGN &<br>ENGINEERING</div>
+                                <div style="width: 70px;">SOURCING &<br>PLANNING</div>
+                                <div style="width: 70px;">PRODUCTION &<br>ASSEMBLY</div>
+                                <div style="width: 70px;">DISTRIBUTION &<br>RETAIL</div>
+                                <div style="width: 70px;">SERVICE &<br>END-OF-LIFE</div>
+                            </div>
+                        </div>
+                        
+                        <!-- PLM Stats Grid -->
                         <div style="
                             display: grid;
-                            grid-template-columns: repeat(6, 1fr);
-                            gap: 12px;
-                            text-align: center;
-                            margin-bottom: 20px;
+                            grid-template-columns: repeat(5, 1fr);
+                            gap: 15px;
+                            margin-bottom: 25px;
                         ">
+                            <!-- Design & Engineering Stage -->
                             <div style="
-                                background-color: rgba(255,255,255,0.1);
-                                border-radius: 8px;
-                                padding: 12px 8px;
-                                position: relative;
-                                backdrop-filter: blur(5px);
-                                border-bottom: 3px solid #ff6384;
+                                background: rgba(0,0,0,0.2);
+                                border-radius: 10px;
+                                padding: 15px;
+                                border-left: 4px solid #ff6384;
                             ">
-                                <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Raw Materials</div>
-                                <div style="font-size: 18px; font-weight: 700;">100%</div>
-                                <div style="font-size: 10px; opacity: 0.7;">4 suppliers</div>
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 10px;
+                                ">
+                                    <div style="font-weight: 700; font-size: 14px;">Design</div>
+                                    <div style="
+                                        background: #ff6384;
+                                        font-size: 11px;
+                                        padding: 2px 6px;
+                                        border-radius: 10px;
+                                        font-weight: 700;
+                                    ">ACTIVE</div>
+                                </div>
+                                
+                                <div style="font-size: 22px; font-weight: 800; margin-bottom: 5px;">253</div>
+                                <div style="font-size: 11px; opacity: 0.7;">Design Changes</div>
+                                
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 10px;
+                                    font-size: 11px;
+                                ">
+                                    <div>Completion:</div>
+                                    <div style="font-weight: 700;">95%</div>
+                                </div>
+                                
+                                <div style="
+                                    height: 4px;
+                                    background: rgba(255,255,255,0.2);
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                    overflow: hidden;
+                                ">
+                                    <div style="
+                                        height: 100%;
+                                        width: 95%;
+                                        background: #ff6384;
+                                        border-radius: 2px;
+                                    "></div>
+                                </div>
                             </div>
                             
+                            <!-- Sourcing & Planning Stage -->
                             <div style="
-                                background-color: rgba(255,255,255,0.1);
-                                border-radius: 8px;
-                                padding: 12px 8px;
-                                position: relative;
-                                backdrop-filter: blur(5px);
-                                border-bottom: 3px solid #36a2eb;
+                                background: rgba(0,0,0,0.2);
+                                border-radius: 10px;
+                                padding: 15px;
+                                border-left: 4px solid #36a2eb;
                             ">
-                                <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Component Manuf.</div>
-                                <div style="font-size: 18px; font-weight: 700;">87%</div>
-                                <div style="font-size: 10px; opacity: 0.7;">12 processes</div>
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 10px;
+                                ">
+                                    <div style="font-weight: 700; font-size: 14px;">Sourcing</div>
+                                    <div style="
+                                        background: #36a2eb;
+                                        font-size: 11px;
+                                        padding: 2px 6px;
+                                        border-radius: 10px;
+                                        font-weight: 700;
+                                    ">ACTIVE</div>
+                                </div>
+                                
+                                <div style="font-size: 22px; font-weight: 800; margin-bottom: 5px;">42</div>
+                                <div style="font-size: 11px; opacity: 0.7;">Suppliers Connected</div>
+                                
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 10px;
+                                    font-size: 11px;
+                                ">
+                                    <div>Supply Chain:</div>
+                                    <div style="font-weight: 700;">88%</div>
+                                </div>
+                                
+                                <div style="
+                                    height: 4px;
+                                    background: rgba(255,255,255,0.2);
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                    overflow: hidden;
+                                ">
+                                    <div style="
+                                        height: 100%;
+                                        width: 88%;
+                                        background: #36a2eb;
+                                        border-radius: 2px;
+                                    "></div>
+                                </div>
                             </div>
                             
+                            <!-- Production & Assembly Stage -->
                             <div style="
-                                background-color: rgba(255,255,255,0.1);
-                                border-radius: 8px;
-                                padding: 12px 8px;
-                                position: relative;
-                                backdrop-filter: blur(5px);
-                                border-bottom: 3px solid #4bc0c0;
+                                background: rgba(0,0,0,0.2);
+                                border-radius: 10px;
+                                padding: 15px;
+                                border-left: 4px solid #4bc0c0;
                             ">
-                                <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Sub-Assembly</div>
-                                <div style="font-size: 18px; font-weight: 700;">93%</div>
-                                <div style="font-size: 10px; opacity: 0.7;">8 stations</div>
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 10px;
+                                ">
+                                    <div style="font-weight: 700; font-size: 14px;">Production</div>
+                                    <div style="
+                                        background: #4bc0c0;
+                                        font-size: 11px;
+                                        padding: 2px 6px;
+                                        border-radius: 10px;
+                                        font-weight: 700;
+                                    ">ACTIVE</div>
+                                </div>
+                                
+                                <div style="font-size: 22px; font-weight: 800; margin-bottom: 5px;">1,248</div>
+                                <div style="font-size: 11px; opacity: 0.7;">Units in Production</div>
+                                
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 10px;
+                                    font-size: 11px;
+                                ">
+                                    <div>Yield Rate:</div>
+                                    <div style="font-weight: 700;">93%</div>
+                                </div>
+                                
+                                <div style="
+                                    height: 4px;
+                                    background: rgba(255,255,255,0.2);
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                    overflow: hidden;
+                                ">
+                                    <div style="
+                                        height: 100%;
+                                        width: 93%;
+                                        background: #4bc0c0;
+                                        border-radius: 2px;
+                                    "></div>
+                                </div>
                             </div>
                             
+                            <!-- Distribution & Retail Stage -->
                             <div style="
-                                background-color: rgba(255,255,255,0.1);
-                                border-radius: 8px;
-                                padding: 12px 8px;
-                                position: relative;
-                                backdrop-filter: blur(5px);
-                                border-bottom: 3px solid #ffcd56;
+                                background: rgba(0,0,0,0.2);
+                                border-radius: 10px;
+                                padding: 15px;
+                                border-left: 4px solid #ffcd56;
                             ">
-                                <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Final Assembly</div>
-                                <div style="font-size: 18px; font-weight: 700;">96%</div>
-                                <div style="font-size: 10px; opacity: 0.7;">3 locations</div>
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 10px;
+                                ">
+                                    <div style="font-weight: 700; font-size: 14px;">Distribution</div>
+                                    <div style="
+                                        background: #ffcd56;
+                                        font-size: 11px;
+                                        padding: 2px 6px;
+                                        border-radius: 10px;
+                                        font-weight: 700;
+                                    ">ACTIVE</div>
+                                </div>
+                                
+                                <div style="font-size: 22px; font-weight: 800; margin-bottom: 5px;">824</div>
+                                <div style="font-size: 11px; opacity: 0.7;">Vehicles in Transit</div>
+                                
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 10px;
+                                    font-size: 11px;
+                                ">
+                                    <div>On-Time Delivery:</div>
+                                    <div style="font-weight: 700;">97%</div>
+                                </div>
+                                
+                                <div style="
+                                    height: 4px;
+                                    background: rgba(255,255,255,0.2);
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                    overflow: hidden;
+                                ">
+                                    <div style="
+                                        height: 100%;
+                                        width: 97%;
+                                        background: #ffcd56;
+                                        border-radius: 2px;
+                                    "></div>
+                                </div>
                             </div>
                             
+                            <!-- Service & End-of-Life Stage -->
                             <div style="
-                                background-color: rgba(255,255,255,0.1);
-                                border-radius: 8px;
-                                padding: 12px 8px;
-                                position: relative;
-                                backdrop-filter: blur(5px);
-                                border-bottom: 3px solid #9966ff;
+                                background: rgba(0,0,0,0.2);
+                                border-radius: 10px;
+                                padding: 15px;
+                                border-left: 4px solid #9966ff;
                             ">
-                                <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Quality Control</div>
-                                <div style="font-size: 18px; font-weight: 700;">99%</div>
-                                <div style="font-size: 10px; opacity: 0.7;">24 checkpoints</div>
-                            </div>
-                            
-                            <div style="
-                                background-color: rgba(255,255,255,0.1);
-                                border-radius: 8px;
-                                padding: 12px 8px;
-                                position: relative;
-                                backdrop-filter: blur(5px);
-                                border-bottom: 3px solid #ff9f40;
-                            ">
-                                <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Dealership Net.</div>
-                                <div style="font-size: 18px; font-weight: 700;">91%</div>
-                                <div style="font-size: 10px; opacity: 0.7;">218 dealers</div>
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    margin-bottom: 10px;
+                                ">
+                                    <div style="font-weight: 700; font-size: 14px;">Service</div>
+                                    <div style="
+                                        background: #9966ff;
+                                        font-size: 11px;
+                                        padding: 2px 6px;
+                                        border-radius: 10px;
+                                        font-weight: 700;
+                                    ">ACTIVE</div>
+                                </div>
+                                
+                                <div style="font-size: 22px; font-weight: 800; margin-bottom: 5px;">24K</div>
+                                <div style="font-size: 11px; opacity: 0.7;">Service Records</div>
+                                
+                                <div style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 10px;
+                                    font-size: 11px;
+                                ">
+                                    <div>Customer Sat:</div>
+                                    <div style="font-weight: 700;">91%</div>
+                                </div>
+                                
+                                <div style="
+                                    height: 4px;
+                                    background: rgba(255,255,255,0.2);
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                    overflow: hidden;
+                                ">
+                                    <div style="
+                                        height: 100%;
+                                        width: 91%;
+                                        background: #9966ff;
+                                        border-radius: 2px;
+                                    "></div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div style="
-                            height: 8px;
-                            background-color: rgba(255,255,255,0.1);
-                            border-radius: 4px;
-                            margin-bottom: 20px;
-                            position: relative;
-                            overflow: hidden;
-                        ">
-                            <div style="
-                                height: 100%;
-                                width: 94%;
-                                background: linear-gradient(to right, #ff6384, #36a2eb, #4bc0c0, #ffcd56, #9966ff, #ff9f40);
-                                border-radius: 4px;
-                            "></div>
-                        </div>
-                        
+                        <!-- PLM Metrics -->
                         <div style="
                             display: flex;
                             justify-content: space-between;
-                            font-size: 13px;
+                            margin-bottom: 15px;
                         ">
-                            <div>Overall Digital Thread Health: <strong>94%</strong></div>
-                            <div>Last Updated: <strong>Just now</strong></div>
+                            <div style="
+                                background: rgba(255,255,255,0.1);
+                                padding: 10px 15px;
+                                border-radius: 8px;
+                                text-align: center;
+                                flex: 1;
+                                margin-right: 15px;
+                            ">
+                                <div style="font-size: 12px; margin-bottom: 5px;">Time to Market</div>
+                                <div style="font-size: 18px; font-weight: 700;">14.3 mos</div>
+                                <div style="font-size: 10px; color: #4bc0c0;">▼ 2.1 mos YoY</div>
+                            </div>
+                            
+                            <div style="
+                                background: rgba(255,255,255,0.1);
+                                padding: 10px 15px;
+                                border-radius: 8px;
+                                text-align: center;
+                                flex: 1;
+                                margin-right: 15px;
+                            ">
+                                <div style="font-size: 12px; margin-bottom: 5px;">Design Changes</div>
+                                <div style="font-size: 18px; font-weight: 700;">-37%</div>
+                                <div style="font-size: 10px; color: #4bc0c0;">▼ Improved</div>
+                            </div>
+                            
+                            <div style="
+                                background: rgba(255,255,255,0.1);
+                                padding: 10px 15px;
+                                border-radius: 8px;
+                                text-align: center;
+                                flex: 1;
+                                margin-right: 15px;
+                            ">
+                                <div style="font-size: 12px; margin-bottom: 5px;">First Time Quality</div>
+                                <div style="font-size: 18px; font-weight: 700;">93.2%</div>
+                                <div style="font-size: 10px; color: #4bc0c0;">▲ 1.7% YoY</div>
+                            </div>
+                            
+                            <div style="
+                                background: rgba(255,255,255,0.1);
+                                padding: 10px 15px;
+                                border-radius: 8px;
+                                text-align: center;
+                                flex: 1;
+                            ">
+                                <div style="font-size: 12px; margin-bottom: 5px;">Warranty Claims</div>
+                                <div style="font-size: 18px; font-weight: 700;">-24%</div>
+                                <div style="font-size: 10px; color: #4bc0c0;">▼ Improved</div>
+                            </div>
                         </div>
+                        
+                        <!-- PLM Status Bar -->
+                        <div style="
+                            background: rgba(0,0,0,0.3);
+                            border-radius: 8px;
+                            padding: 12px 15px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        ">
+                            <div>
+                                <div style="font-size: 13px; margin-bottom: 5px;">Digital Thread Health</div>
+                                <div style="
+                                    height: 6px;
+                                    width: 200px;
+                                    background: rgba(255,255,255,0.1);
+                                    border-radius: 3px;
+                                    overflow: hidden;
+                                ">
+                                    <div style="
+                                        height: 100%;
+                                        width: 94%;
+                                        background: linear-gradient(90deg, #ff6384, #36a2eb, #4bc0c0, #ffcd56, #9966ff);
+                                        border-radius: 3px;
+                                    "></div>
+                                </div>
+                            </div>
+                            
+                            <div style="
+                                text-align: right;
+                                display: flex;
+                                align-items: center;
+                            ">
+                                <div style="margin-right: 15px;">
+                                    <div style="font-size: 12px; opacity: 0.7;">Status</div>
+                                    <div style="font-size: 14px; font-weight: 700;">HEALTHY</div>
+                                </div>
+                                
+                                <div style="
+                                    background: #4bc0c0;
+                                    width: 40px;
+                                    height: 40px;
+                                    border-radius: 20px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 18px;
+                                    font-weight: 700;
+                                ">94%</div>
+                            </div>
+                        </div>
+                        
+                        <style>
+                            @keyframes progressPulse {
+                                0% { box-shadow: 0 0 5px rgba(79, 172, 254, 0.7); }
+                                100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.9); }
+                            }
+                        </style>
                     </div>
                 </div>
                 
