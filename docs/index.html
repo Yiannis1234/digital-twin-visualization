@@ -388,7 +388,7 @@
                 container.innerHTML = '';
                 
                 // Re-add the flow path
-                const flowPath = document.createElement('div');
+                let flowPath = document.createElement('div');
                 flowPath.className = 'flow-path';
                 container.appendChild(flowPath);
                 
@@ -400,47 +400,48 @@
                     stage.className = 'manufacturing-stage';
                     stage.id = `stage-${i}`;
                     
-                    // Instead of span, use direct HTML content with proper styling
-                    const stageNames = {
-                        "Raw Materials": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
-                            <div style='background-color:#ffffff; padding:4px 6px; border-radius:4px; border:2px solid #ff0000; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.5);'>
-                                <div style='color:#000000; font-size:12px; font-weight:bold; line-height:1.2;'>Raw<br>Materials</div>
+                    // Create a cleaner, more visible stage display
+                    const stageContent = `
+                        <div style='
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: linear-gradient(135deg, #1a237e, #0d47a1);
+                            border: 3px solid #64b5f6;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                            padding: 8px;
+                            position: relative;
+                            overflow: hidden;
+                        '>
+                            <div style='
+                                background-color: rgba(255, 255, 255, 0.95);
+                                border-radius: 4px;
+                                padding: 6px 8px;
+                                text-align: center;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                                width: 90%;
+                            '>
+                                <div style='
+                                    color: #1a237e;
+                                    font-size: ${stageName.length > 15 ? '11px' : '13px'};
+                                    font-weight: 800;
+                                    line-height: 1.2;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.5px;
+                                '>${stageName.replace(' ', '<br>')}</div>
                             </div>
-                        </div>`,
-                        "Component Manufacturing": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
-                            <div style='background-color:#ffffff; padding:4px 6px; border-radius:4px; border:2px solid #ff0000; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.5);'>
-                                <div style='color:#000000; font-size:10px; font-weight:bold; line-height:1.2;'>Component<br>Manufacturing</div>
-                            </div>
-                        </div>`,
-                        "Sub-Assembly": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
-                            <div style='background-color:#ffffff; padding:4px 6px; border-radius:4px; border:2px solid #ff0000; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.5);'>
-                                <div style='color:#000000; font-size:12px; font-weight:bold; line-height:1.2;'>Sub-<br>Assembly</div>
-                            </div>
-                        </div>`,
-                        "Final Assembly": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
-                            <div style='background-color:#ffffff; padding:4px 6px; border-radius:4px; border:2px solid #ff0000; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.5);'>
-                                <div style='color:#000000; font-size:12px; font-weight:bold; line-height:1.2;'>Final<br>Assembly</div>
-                            </div>
-                        </div>`,
-                        "Quality Control": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
-                            <div style='background-color:#ffffff; padding:4px 6px; border-radius:4px; border:2px solid #ff0000; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.5);'>
-                                <div style='color:#000000; font-size:12px; font-weight:bold; line-height:1.2;'>Quality<br>Control</div>
-                            </div>
-                        </div>`,
-                        "Dealership Network": `<div style='width:100%; display:flex; align-items:center; justify-content:center; height:100%; overflow:visible;'>
-                            <div style='background-color:#ffffff; padding:4px 6px; border-radius:4px; border:2px solid #ff0000; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.5);'>
-                                <div style='color:#000000; font-size:10px; font-weight:bold; line-height:1.2;'>Dealership<br>Network</div>
-                            </div>
-                        </div>`
-                    };
+                        </div>
+                    `;
                     
-                    // Set the HTML content directly
-                    stage.innerHTML = stageNames[stageName];
+                    stage.innerHTML = stageContent;
                     
-                    // Add alert indicator directly to stage
+                    // Add alert indicator
                     const alert = document.createElement('div');
                     alert.className = 'stage-alert';
-                    alert.textContent = '!';
+                    alert.innerHTML = '!';
                     alert.style.display = 'none';
                     stage.appendChild(alert);
                     
@@ -448,7 +449,7 @@
                     
                     // Position the stage
                     const containerWidth = container.offsetWidth;
-                    const stageWidth = 140; // Match CSS width
+                    const stageWidth = 140;
                     const totalWidth = manufacturingStages.length * stageWidth;
                     const margin = (containerWidth - totalWidth) / (manufacturingStages.length + 1);
                     
@@ -458,19 +459,8 @@
                     stage.style.top = '50%';
                     stage.style.transform = 'translateY(-50%)';
                     stage.style.width = '140px';
-                    stage.style.height = '80px';
-                    stage.style.backgroundColor = '#a6001a'; // Bright red background
-                    stage.style.border = '3px solid white'; // White border
-                    stage.style.borderRadius = '8px';
-                    stage.style.display = 'flex';
-                    stage.style.alignItems = 'center';
-                    stage.style.justifyContent = 'center';
-                    stage.style.fontSize = '14px';
-                    stage.style.fontWeight = 'bold';
-                    stage.style.textAlign = 'center';
-                    stage.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5)';
-                    stage.style.zIndex = '10'; // Higher z-index to ensure visibility
-                    stage.style.overflow = 'visible';
+                    stage.style.height = '70px';
+                    stage.style.zIndex = '10';
                 }
                 
                 // Create data flow elements
@@ -496,7 +486,7 @@
                 }
                 
                 // Make the flow path visible and styled properly
-                const flowPath = document.querySelector('.flow-path');
+                flowPath = document.querySelector('.flow-path');
                 if (flowPath) {
                     flowPath.style.position = 'absolute';
                     flowPath.style.height = '3px';
@@ -721,7 +711,7 @@
                     }
                     
                     // Update flow path based on throughput
-                    const flowPath = document.querySelector('.flow-path');
+                    flowPath = document.querySelector('.flow-path');
                     if (flowPath) {
                         const opacity = 0.4 + (throughputFactor * 0.4);
                         flowPath.style.backgroundColor = `rgba(54, 162, 235, ${opacity})`;
