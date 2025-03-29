@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Thread Research Visualization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+    <style>
+        /* Digital Thread Visualization Styles */
+        .digital-thread-visualization {
+            position: relative;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .digital-thread-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        
+        .digital-thread-container {
+            position: relative;
+            height: 180px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .manufacturing-stage {
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            background-color: white;
+            border: 2px solid #1976D2;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 2;
+            transition: all 0.3s ease;
+            color: #1d3557; /* Dark blue text color for contrast */
+            overflow: hidden;
+            padding: 5px;
+            line-height: 1.2;
+        }
+        
+        .flow-path {
+            position: absolute;
+            height: 4px;
+            background-color: rgba(54, 162, 235, 0.8);
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 0;
+            border-radius: 2px;
+        }
+        
+        .flow-direction {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 3;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .arrow-right {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid #36a2eb;
+            margin-right: 5px;
+        }
+        
+        .flow-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .data-flow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #36a2eb;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 5px rgba(54, 162, 235, 0.8);
+        }
+        
+        .stage-alert {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: #d32f2f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 3;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0 10px 5px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+        
+        /* Chart styles */
+        .chart-container {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            height: 250px;
+        }
+        
+        @keyframes flowAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+        
+        .data-flow {
+            animation: flowAnimation 5s linear infinite;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.1/dist/chartjs-adapter-moment.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 class="display-5 fw-bold text-center">Automotive Industry</h1>
+            <h2 class="h5 text-center mb-3">Research Visualization Tool</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Introduction -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="section-title">What are Digital Threads?</h3>
+                        <p class="card-text">
+                            Digital threads create a continuous flow of data connecting all stages of a product's lifecycle.
+                            In automotive manufacturing, they link raw materials sourcing through component manufacturing, 
+                            assembly, quality control, and after-sales service, enabling complete traceability and data-driven decision making.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- How It Works -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="section-title">How This Visualization Works</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="h6 fw-bold">Real-time Data Simulation</h4>
+                                <p class="card-text">
+                                    This tool simulates real-time data flow across automotive manufacturing stages.
+                                    The system continuously generates data points representing:
+                                </p>
+                                <ul class="card-text small">
+                                    <li><strong>System Load:</strong> Processing capacity across systems (20-100%)</li>
+                                    <li><strong>Network Latency:</strong> Communication delays between systems (20-150ms)</li>
+                                    <li><strong>Data Throughput:</strong> Volume of data processed (0-1000 Mbps)</li>
+                                    <li><strong>Traceability Health:</strong> Overall health of the digital thread (0-100%)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="h6 fw-bold">Relationships Between Parameters</h4>
+                                <p class="card-text small">
+                                    Parameters influence each other in realistic ways:
+                                </p>
+                                <ul class="card-text small">
+                                    <li>Higher system load increases network latency</li>
+                                    <li>Higher latency reduces data throughput</li>
+                                    <li>Lower throughput affects traceability health</li>
+                                    <li>Use the sliders to adjust these parameters and observe the effects</li>
+                                </ul>
+                                <p class="card-text small mt-2">
+                                    <strong>TIP:</strong> Watch how your adjustments affect the manufacturing stages, 
+                                    data flow particles, stakeholder connections, and charts in real-time!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Digital Thread Visualization -->
+                <div class="digital-thread-visualization">
+                    <div class="digital-thread-title">Digital Thread Across Automotive Supply Chain</div>
+                    <div class="digital-thread-container" id="digital-thread-container">
+                        <!-- Flow path line connecting all stages -->
+                        <div class="flow-path"></div>
+                        
+                        <!-- Manufacturing stages will be added here by JavaScript -->
+                    </div>
+                    
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff6384;"></div>
+                            <span>High System Load</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #36a2eb;"></div>
+                            <span>Data Flow</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #d32f2f;"></div>
+                            <span>Traceability Issues</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: rgba(255, 152, 0, 0.9);"></div>
+                            <span>Stakeholder Interaction</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Real-time Charts Section -->
+                <h3 class="section-title mb-3">Real-time Performance Metrics</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <div class="chart-title">System Load (%)</div>
+                            <canvas id="systemLoadChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <div class="chart-title">Network Latency (ms)</div>
+                            <canvas id="networkLatencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <div class="chart-title">Data Throughput (Mbps)</div>
+                            <canvas id="dataThroughputChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <div class="chart-title">Traceability Health Index (%)</div>
+                            <canvas id="systemHealthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <!-- Interactive Controls -->
+                <div class="control-panel">
+                    <h3 class="section-title">Interactive Controls</h3>
+                    <p class="card-text small mb-3">
+                        Adjust the parameters below to see how they affect the digital thread visualization and performance metrics.
+                    </p>
+                    
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>System Load</span>
+                            <span class="slider-value" id="systemLoadValue">50%</span>
+                        </div>
+                        <input type="range" class="form-range" min="20" max="100" step="1" value="50" id="systemLoadSlider">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Network Latency</span>
+                            <span class="slider-value" id="networkLatencyValue">60ms</span>
+                        </div>
+                        <input type="range" class="form-range" min="20" max="150" step="1" value="60" id="networkLatencySlider">
+                    </div>
+                    
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Data Throughput</span>
+                            <span class="slider-value" id="dataThroughputValue">500Mbps</span>
+                        </div>
+                        <input type="range" class="form-range" min="50" max="1000" step="10" value="500" id="dataThroughputSlider">
+                    </div>
+                    
+                    <button id="resetButton" class="btn btn-outline-secondary w-100 mt-3">Reset Parameters</button>
+                </div>
+                
+                <!-- Parameter Impact Information -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="section-title">Digital Thread Impacts in Automotive</h3>
+                        
+                        <div class="parameter-impact-card system-load-border mb-3">
+                            <h5 class="card-title">System Load</h5>
+                            <p class="card-text small">Processing load across automotive supply chain systems:</p>
+                            <ul class="impact-list">
+                                <li>Affects real-time data processing for component traceability</li>
+                                <li>Impacts quality control efficiency and identification of defective parts</li>
+                                <li>Influences supplier material validation processing times</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="parameter-impact-card network-latency-border mb-3">
+                            <h5 class="card-title">Network Latency</h5>
+                            <p class="card-text small">Delays in data transmission across the supply chain:</p>
+                            <ul class="impact-list">
+                                <li>Affects recall management response time and effectiveness</li>
+                                <li>Impacts real-time component traceability across manufacturing stages</li>
+                                <li>Critical for global supply chain coordination and logistics</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="parameter-impact-card data-throughput-border mb-3">
+                            <h5 class="card-title">Data Throughput</h5>
+                            <p class="card-text small">Volume of automotive supply chain data processed:</p>
+                            <ul class="impact-list">
+                                <li>Determines detail level of component history tracking</li>
+                                <li>Essential for predictive maintenance data collection</li>
+                                <li>Affects completeness of manufacturing process records</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="parameter-impact-card system-health-border">
+                            <h5 class="card-title">Traceability Health</h5>
+                            <p class="card-text small">Overall health indicator of the automotive digital thread system:</p>
+                            <ul class="impact-list">
+                                <li>Represents the reliability of the entire traceability system</li>
+                                <li>Affects regulatory compliance capabilities</li>
+                                <li>Critical for warranty claim validation and analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Pass data from Flask to JavaScript
+        const manufacturingStages = ["Raw Materials", "Component Manufacturing", "Sub-Assembly", "Final Assembly", "Quality Control", "Dealership Network"];
+        
+        // Add direct initialization code for the digital thread visualization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the digital thread visualization directly
+            const container = document.getElementById('digital-thread-container');
+            if (container) {
+                console.log("Initializing digital thread visualization");
+                
+                // First clear any existing content
+                container.innerHTML = '';
+                
+                // Re-add the flow path
+                const flowPath = document.createElement('div');
+                flowPath.className = 'flow-path';
+                container.appendChild(flowPath);
+                
+                // Create manufacturing stages
+                for (let i = 0; i < manufacturingStages.length; i++) {
+                    const stageName = manufacturingStages[i];
+                    
+                    const stage = document.createElement('div');
+                    stage.className = 'manufacturing-stage';
+                    stage.id = `stage-${i}`;
+                    
+                    // Instead of span, use direct HTML content with proper styling
+                    const stageNames = {
+                        "Raw Materials": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Raw Materials</div></div>",
+                        "Component Manufacturing": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Component Manufacturing</div></div>",
+                        "Sub-Assembly": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Sub-Assembly</div></div>",
+                        "Final Assembly": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Final Assembly</div></div>",
+                        "Quality Control": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Quality Control</div></div>",
+                        "Dealership Network": "<div style='width:100%; display:flex; align-items:center; justify-content:flex-start; padding-left:5px; height:100%;'><div style='color: white; font-size: 3px; font-weight: 900; text-shadow: 1px 1px 2px black;'>Dealership Network</div></div>"
+                    };
+                    
+                    // Set the HTML content directly
+                    stage.innerHTML = stageNames[stageName];
+                    
+                    // Add alert indicator directly to stage
+                    const alert = document.createElement('div');
+                    alert.className = 'stage-alert';
+                    alert.textContent = '!';
+                    alert.style.display = 'none';
+                    stage.appendChild(alert);
+                    
+                    container.appendChild(stage);
+                    
+                    // Position the stage
+                    const containerWidth = container.offsetWidth;
+                    const stageWidth = 140; // Match CSS width
+                    const totalWidth = manufacturingStages.length * stageWidth;
+                    const margin = (containerWidth - totalWidth) / (manufacturingStages.length + 1);
+                    
+                    const leftPos = margin + (i * (stageWidth + margin));
+                    stage.style.position = 'absolute';
+                    stage.style.left = `${leftPos}px`;
+                    stage.style.top = '50%';
+                    stage.style.transform = 'translateY(-50%)';
+                    stage.style.width = '140px';
+                    stage.style.height = '80px';
+                    stage.style.backgroundColor = '#a6001a'; // Bright red background
+                    stage.style.border = '3px solid white'; // White border
+                    stage.style.borderRadius = '8px';
+                    stage.style.display = 'flex';
+                    stage.style.alignItems = 'center';
+                    stage.style.justifyContent = 'center';
+                    stage.style.fontSize = '14px';
+                    stage.style.fontWeight = 'bold';
+                    stage.style.textAlign = 'center';
+                    stage.style.boxShadow = '0 6px 12px rgba(0,0,0,0.5)';
+                    stage.style.zIndex = '2';
+                    stage.style.overflow = 'visible';
+                }
+                
+                // Create data flow elements
+                for (let i = 0; i < 20; i++) {
+                    const flow = document.createElement('div');
+                    flow.className = 'data-flow';
+                    
+                    // Set styles directly
+                    flow.style.position = 'absolute';
+                    flow.style.width = '10px';
+                    flow.style.height = '10px';
+                    flow.style.backgroundColor = '#36a2eb';
+                    flow.style.borderRadius = '50%';
+                    flow.style.top = `${48 + Math.random() * 4}%`;
+                    flow.style.left = `${Math.random() * 10}%`;
+                    flow.style.zIndex = '1';
+                    flow.style.boxShadow = '0 0 8px #36a2eb';
+                    
+                    // Add a pulsating effect
+                    flow.style.animation = `flowAnimation ${3 + Math.random() * 2}s linear infinite`;
+                    
+                    container.appendChild(flow);
+                }
+                
+                // Make the flow path visible and styled properly
+                const flowPath = document.querySelector('.flow-path');
+                if (flowPath) {
+                    flowPath.style.position = 'absolute';
+                    flowPath.style.height = '3px';
+                    flowPath.style.backgroundColor = 'rgba(54, 162, 235, 0.6)';
+                    flowPath.style.top = '50%';
+                    flowPath.style.left = '0';
+                    flowPath.style.right = '0';
+                    flowPath.style.transform = 'translateY(-50%)';
+                    flowPath.style.zIndex = '0';
+                }
+            }
+        });
+    </script>
+    <script src="static/js/digital-thread.js"></script>
+    <script>
+        // Fallback script to ensure charts work even if the main JS fails
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if charts are already initialized
+            if (!window.chartsInitialized && document.getElementById('systemLoadChart')) {
+                console.log("Fallback chart initialization running");
+                window.chartsInitialized = true;
+                
+                // Create charts directly
+                const createBasicChart = (canvasId, label, color) => {
+                    const ctx = document.getElementById(canvasId).getContext('2d');
+                    
+                    // Generate some random data
+                    const data = [];
+                    const labels = [];
+                    const now = new Date();
+                    
+                    for (let i = 0; i < 20; i++) {
+                        const time = new Date(now.getTime() - (20-i) * 1000);
+                        labels.push(time);
+                        
+                        // Different ranges for different metrics - with correlated values
+                        let value;
+                        if (canvasId === 'systemLoadChart') {
+                            value = Math.floor(Math.random() * 40) + 30; // 30-70%
+                        } else if (canvasId === 'networkLatencyChart') {
+                            value = Math.floor(Math.random() * 50) + 30; // 30-80ms
+                        } else if (canvasId === 'dataThroughputChart') {
+                            value = Math.floor(Math.random() * 300) + 350; // 350-650 Mbps
+                        } else {
+                            value = Math.floor(Math.random() * 30) + 60; // 60-90%
+                        }
+                        data.push(value);
+                    }
+                    
+                    return new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: label,
+                                data: data,
+                                borderColor: color,
+                                backgroundColor: color.replace(')', ', 0.15)').replace('rgb', 'rgba'),
+                                borderWidth: 2,
+                                pointRadius: 3,
+                                tension: 0.3,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    type: 'time',
+                                    time: {
+                                        unit: 'minute',
+                                        displayFormats: {
+                                            minute: 'HH:mm',
+                                            second: 'HH:mm:ss'
+                                        }
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                };
+                
+                // Create all charts
+                const systemLoadChart = createBasicChart('systemLoadChart', 'System Load', 'rgb(255, 99, 132)');
+                const networkLatencyChart = createBasicChart('networkLatencyChart', 'Network Latency', 'rgb(54, 162, 235)');
+                const dataThroughputChart = createBasicChart('dataThroughputChart', 'Data Throughput', 'rgb(75, 192, 192)');
+                const systemHealthChart = createBasicChart('systemHealthChart', 'Traceability Health', 'rgb(255, 205, 86)');
+                
+                // Base variables to track changes over time
+                let baseSystemLoad = 50; // Starting point
+                let trend = 0.5; // Trend direction and strength
+                
+                // Update charts every second with realistic correlations
+                setInterval(() => {
+                    const now = new Date();
+                    
+                    // System load has some randomness but follows trends
+                    trend += (Math.random() - 0.5) * 0.3; // Adjust trend direction slightly
+                    if (Math.abs(trend) > 1) trend *= 0.85; // Dampen extreme trends
+                    
+                    // Adjust base system load with trend
+                    baseSystemLoad += trend;
+                    // Keep within bounds with some mean reversion
+                    if (baseSystemLoad < 25) {
+                        baseSystemLoad = 25 + Math.random() * 5;
+                        trend = Math.abs(trend) * 0.5;
+                    } else if (baseSystemLoad > 95) {
+                        baseSystemLoad = 95 - Math.random() * 5;
+                        trend = -Math.abs(trend) * 0.5;
+                    }
+                    
+                    // Create realistic variations around base value
+                    const systemLoad = Math.round(baseSystemLoad + (Math.random() * 4 - 2));
+                    
+                    // Network latency is influenced by system load - higher load means higher latency
+                    const networkLatency = Math.round(30 + (systemLoad * 0.8) + (Math.random() * 10 - 5));
+                    
+                    // Data throughput is inversely affected by system load and network latency
+                    const dataThroughput = Math.round(900 - (systemLoad * 4) - (networkLatency * 2) + (Math.random() * 40 - 20));
+                    
+                    // System health is affected by all other metrics
+                    const systemHealth = Math.round(Math.max(0, Math.min(100, 100 - (systemLoad * 0.4) - (networkLatency * 0.2) + (dataThroughput * 0.02))));
+                    
+                    // Update UI values if sliders exist
+                    if (document.getElementById('systemLoadValue')) {
+                        document.getElementById('systemLoadValue').textContent = `${systemLoad}%`;
+                    }
+                    if (document.getElementById('networkLatencyValue')) {
+                        document.getElementById('networkLatencyValue').textContent = `${networkLatency}ms`;
+                    }
+                    if (document.getElementById('dataThroughputValue')) {
+                        document.getElementById('dataThroughputValue').textContent = `${dataThroughput}Mbps`;
+                    }
+                    
+                    // Add new data points to each chart
+                    systemLoadChart.data.labels.push(now);
+                    systemLoadChart.data.datasets[0].data.push(systemLoad);
+                    
+                    networkLatencyChart.data.labels.push(now);
+                    networkLatencyChart.data.datasets[0].data.push(networkLatency);
+                    
+                    dataThroughputChart.data.labels.push(now);
+                    dataThroughputChart.data.datasets[0].data.push(dataThroughput);
+                    
+                    systemHealthChart.data.labels.push(now);
+                    systemHealthChart.data.datasets[0].data.push(systemHealth);
+                    
+                    // Remove old data points
+                    if (systemLoadChart.data.labels.length > 30) {
+                        systemLoadChart.data.labels.shift();
+                        systemLoadChart.data.datasets[0].data.shift();
+                        
+                        networkLatencyChart.data.labels.shift();
+                        networkLatencyChart.data.datasets[0].data.shift();
+                        
+                        dataThroughputChart.data.labels.shift();
+                        dataThroughputChart.data.datasets[0].data.shift();
+                        
+                        systemHealthChart.data.labels.shift();
+                        systemHealthChart.data.datasets[0].data.shift();
+                    }
+                    
+                    // Update all charts
+                    systemLoadChart.update();
+                    networkLatencyChart.update();
+                    dataThroughputChart.update();
+                    systemHealthChart.update();
+                    
+                    // Also update the digital thread visualization with new data
+                    updateDigitalThreadVisualization({
+                        system_load: systemLoad,
+                        network_latency: networkLatency, 
+                        data_throughput: dataThroughput,
+                        system_health: systemHealth
+                    });
+                    
+                }, 1000);
+                
+                // Connect slider interactions
+                const systemLoadSlider = document.getElementById('systemLoadSlider');
+                const networkLatencySlider = document.getElementById('networkLatencySlider');
+                const dataThroughputSlider = document.getElementById('dataThroughputSlider');
+                
+                if (systemLoadSlider) {
+                    systemLoadSlider.addEventListener('input', function() {
+                        baseSystemLoad = parseInt(this.value);
+                        // Reset trend when user manually changes
+                        trend = 0;
+                    });
+                }
+                
+                // Function to update the digital thread visualization based on metric values
+                function updateDigitalThreadVisualization(data) {
+                    const healthFactor = data.system_health / 100;
+                    const loadFactor = data.system_load / 100;
+                    const latencyFactor = Math.max(0, 1 - (data.network_latency / 200));
+                    const throughputFactor = data.data_throughput / 1000;
+                    
+                    // Update stages based on values
+                    for (let i = 0; i < manufacturingStages.length; i++) {
+                        const stage = document.getElementById(`stage-${i}`);
+                        if (!stage) continue;
+                        
+                        const alert = stage.querySelector('.stage-alert');
+                        
+                        // Stage border color - more red with higher load
+                        const loadColor = Math.round(loadFactor * 255);
+                        stage.style.borderColor = `rgb(${Math.min(13 + loadColor, 255)}, ${Math.max(71 - loadColor, 20)}, ${Math.max(161 - loadColor, 50)})`;
+                        
+                        // Show alert indicators when necessary
+                        if ((healthFactor < 0.6 && Math.random() > 0.7) || (loadFactor > 0.8 && i < 3)) {
+                            if (alert) alert.style.display = 'flex';
+                            stage.style.borderWidth = '3px';
+                        } else {
+                            if (alert) alert.style.display = 'none';
+                            stage.style.borderWidth = '2px';
+                        }
+                    }
+                    
+                    // Update flow path based on throughput
+                    const flowPath = document.querySelector('.flow-path');
+                    if (flowPath) {
+                        const opacity = 0.4 + (throughputFactor * 0.4);
+                        flowPath.style.backgroundColor = `rgba(54, 162, 235, ${opacity})`;
+                        flowPath.style.height = `${2 + (throughputFactor * 3)}px`;
+                    }
+                    
+                    // Update flow elements - adjust their speed based on throughput and latency
+                    const flowElements = document.querySelectorAll('.data-flow');
+                    flowElements.forEach(flow => {
+                        // Adjust size based on throughput
+                        const size = 6 + (throughputFactor * 4);
+                        flow.style.width = `${size}px`;
+                        flow.style.height = `${size}px`;
+                        
+                        // We can't easily change animation speed with inline styles,
+                        // but we can adjust opacity based on health
+                        flow.style.opacity = 0.6 + (healthFactor * 0.4);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
